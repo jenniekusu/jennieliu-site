@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jennie Liu — Marketing × Growth × AI × Crypto</title>
+  <meta name="description" content="Jennie Liu — Fractional CMO for crypto AI startups, agency founder, builder." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg:#F5F5F0;--bg2:#EEEEE9;--black:#0A0A0A;--mid:#555;--dim:#999;
+      --border:rgba(10,10,10,0.08);--accent:#FF4D00;
+      --mono:'Space Mono',monospace;--sans:'Space Grotesk',sans-serif;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--mono);background:var(--bg);color:var(--black);overflow-x:hidden;cursor:none;font-size:14px;line-height:1.6}
+    a{color:inherit;text-decoration:none;cursor:none}
+    ::selection{background:var(--accent);color:#fff}
+
+    /* CURSOR */
+    .cur{position:fixed;width:16px;height:16px;border:2px solid var(--black);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s,border-color .2s;mix-blend-mode:difference}
+    .cur.h{width:48px;height:48px;background:var(--accent);border-color:var(--accent)}
+    .glow{position:fixed;width:220px;height:220px;border-radius:50%;pointer-events:none;z-index:0;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,77,0,.03) 0%,transparent 70%)}
+
+    /* ===== HERO ===== */
+    .hero{height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column}
+
+    /* TOP BAR */
+    .top-bar{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:24px 40px;position:relative;z-index:10;
+      border-bottom:1px solid var(--border);
+    }
+    .top-name{font-weight:700;font-size:.8rem;letter-spacing:2.5px;text-transform:uppercase}
+    .top-nav{display:flex;gap:32px}
+    .top-nav a{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);transition:color .2s}
+    .top-nav a:hover{color:var(--black)}
+    .top-time{font-size:.72rem;letter-spacing:1.5px;color:var(--dim);display:flex;align-items:center;gap:8px}
+    .time-dot{width:6px;height:6px;border-radius:50%;background:#00C853;animation:pulse 2s ease-in-out infinite}
+
+    /* HERO BODY */
+    .hero-body{flex:1;position:relative;display:flex;align-items:center;justify-content:center}
+
+    /* 3D J — CENTER */
+    #threeCanvas{
+      font-family:var(--mono);font-size:11px;line-height:13px;
+      white-space:pre;user-select:none;color:rgba(10,10,10,0.18);
+      letter-spacing:1px;position:relative;z-index:1;
+    }
+
+    /* LEFT BOTTOM — TAGLINE */
+    .hero-tagline{
+      position:absolute;bottom:40px;left:40px;z-index:5;
+      max-width:440px;
+    }
+    .hero-tagline p{
+      font-family:var(--sans);font-size:clamp(.72rem,1vw,.82rem);
+      font-weight:500;letter-spacing:.3px;
+      line-height:1.55;color:var(--mid);
+    }
+
+    /* RIGHT BOTTOM — CTA */
+    .hero-cta-wrap{
+      position:absolute;bottom:40px;right:40px;z-index:5;
+    }
+    .hero-cta{
+      display:flex;align-items:center;gap:12px;
+      background:var(--black);color:var(--bg);
+      padding:14px 28px;border-radius:100px;
+      font-family:var(--mono);font-size:.78rem;
+      font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+      transition:transform .2s,box-shadow .2s;
+    }
+    .hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .hero-cta svg{width:16px;height:16px}
+
+    /* SCROLL HINT */
+    .hero-scroll{
+      position:absolute;bottom:44px;left:50%;transform:translateX(-50%);z-index:5;
+      font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);
+      display:flex;flex-direction:column;align-items:center;gap:6px;
+      text-align:center;line-height:1.6;
+    }
+    .hero-scroll::after{content:'';width:1px;height:28px;background:var(--dim);opacity:.3;animation:scrollP 2s ease-in-out infinite}
+
+    /* ===== SECTIONS ===== */
+    section{padding:120px 48px;position:relative}
+    .sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;flex-wrap:wrap;gap:16px}
+    .sec-num{font-family:var(--sans);font-size:clamp(2.5rem,5vw,4rem);font-weight:700;line-height:1;letter-spacing:-2px}
+    .sec-meta{text-align:right}
+    .sec-label{font-size:.66rem;letter-spacing:3px;text-transform:uppercase;color:var(--dim)}
+    .sec-title{font-family:var(--sans);font-size:clamp(1.5rem,3vw,2.4rem);font-weight:700;letter-spacing:-.5px;margin-top:4px}
+    .div-line{border:none;border-top:1px solid var(--border);margin:0 48px}
+
+    /* NOW */
+    .now-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+    .now-c{background:var(--bg);padding:36px 24px;transition:background .3s}
+    .now-c:hover{background:var(--bg2)}
+    .now-c .role{font-family:var(--sans);font-size:1.15rem;font-weight:700;margin-bottom:4px;letter-spacing:-.3px}
+    .now-c .org{font-size:.72rem;color:var(--accent);margin-bottom:14px;letter-spacing:.5px}
+    .now-c .desc{font-size:.76rem;color:var(--mid);line-height:1.8}
+
+    /* MARQUEE */
+    .mq{padding:18px 0;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .mq-t{display:flex;gap:0;animation:marquee 26s linear infinite;width:max-content}
+    .mq-i{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;padding:0 18px;display:flex;align-items:center;gap:18px;color:var(--dim)}
+    .mq-d{width:3px;height:3px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+    /* PROJECTS */
+    .pr{display:grid;grid-template-columns:80px 1fr auto;gap:28px;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--border);transition:all .35s cubic-bezier(.16,1,.3,1)}
+    .pr:first-child{border-top:1px solid var(--border)}
+    .pr:hover{padding-left:16px}
+    .pr:hover .pn{color:var(--accent)}
+    .pr:hover .pa{opacity:1;transform:translateX(0)}
+    .pt{font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim);padding-top:3px}
+    .pn{font-family:var(--sans);font-size:clamp(1.1rem,1.8vw,1.5rem);font-weight:700;letter-spacing:-.3px;transition:color .3s}
+    .pd{font-size:.73rem;color:var(--dim);margin-top:4px;line-height:1.7;max-width:400px}
+    .pa{font-size:1.2rem;opacity:0;transform:translateX(-8px);transition:all .3s;color:var(--accent)}
+
+    /* TIMELINE */
+    .tl-g{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:64px}
+    .tl-i{background:var(--bg);padding:24px 20px;transition:background .3s}
+    .tl-i:hover{background:var(--bg2)}
+    .tl-y{font-size:.65rem;letter-spacing:2px;color:var(--dim);margin-bottom:6px}
+    .tl-r{font-family:var(--sans);font-size:.95rem;font-weight:700;margin-bottom:2px;letter-spacing:-.2px}
+    .tl-o{font-size:.73rem;color:var(--dim)}
+    .tl-o a{color:var(--mid);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border);transition:all .2s}
+    .tl-o a:hover{color:var(--accent);text-decoration-color:var(--accent)}
+
+    /* FOOTER */
+    footer{padding:100px 48px 40px;border-top:1px solid var(--border);position:relative;overflow:hidden}
+    .ft-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:64px}
+    .ft-cta-text{font-family:var(--sans);font-size:clamp(2.5rem,6vw,5rem);font-weight:700;letter-spacing:-2px;line-height:1}
+    .ft-cta-text a{transition:color .3s}.ft-cta-text a:hover{color:var(--accent)}
+    .ft-3d{display:flex;align-items:center;justify-content:center}
+    #ft3d{font-family:var(--mono);font-size:6px;line-height:7.5px;white-space:pre;user-select:none;color:rgba(10,10,10,.06)}
+    .ft-links{display:flex;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);flex-wrap:wrap}
+    .fl{padding:16px 20px;border-right:1px solid var(--border);font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);transition:all .2s}
+    .fl:hover{color:var(--black);background:var(--bg2)}
+    .ft-bot{margin-top:48px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+    .ft-info{font-size:.65rem;color:var(--dim);line-height:2}
+    .ft-info span{display:block}
+
+    /* SCROLL ANIMS */
+    .rv{opacity:0;transform:translateY(50px) scale(.98);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+    .rv.in{opacity:1;transform:translateY(0) scale(1)}
+    .d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}.d4{transition-delay:.24s}.d5{transition-delay:.3s}
+
+    /* typed chars */
+    .tc{display:inline-block;opacity:0;transform:translateY(12px);transition:opacity .08s ease,transform .18s cubic-bezier(.16,1,.3,1)}
+    .tc.sh{opacity:1;transform:translateY(0)}
+
+    @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes scrollP{0%,100%{opacity:.15;height:28px}50%{opacity:.5;height:44px}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+    /* MOBILE */
+    @media(max-width:900px){
+      body{cursor:auto;font-size:13px}a{cursor:auto}
+      .cur,.glow{display:none!important}
+      .top-bar{padding:16px 20px}.top-nav{gap:16px}.top-nav a:not(:first-child){display:none}.top-time{display:none}
+      .hero-tagline{position:relative;bottom:auto;left:auto;padding:20px 20px 0;max-width:100%}
+      .hero-body{flex-direction:column;padding:20px}
+      #threeCanvas{font-size:8px;line-height:10px}
+      .hero-cta-wrap{position:relative;bottom:auto;right:auto;margin-top:20px}
+      .hero-scroll{display:none}
+      section{padding:64px 20px}.div-line{margin:0 20px}
+      .now-g{grid-template-columns:1fr}.tl-g{grid-template-columns:1fr}
+      .pr{grid-template-columns:1fr;gap:4px}.pa{display:none}
+      footer{padding:64px 20px 32px}.ft-grid{grid-template-columns:1fr}.ft-3d{display:none}
+      .ft-links{flex-direction:column}.fl{border-right:none;border-bottom:1px solid var(--border)}
+    }
+  </style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="glow" id="glow"></div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-name">[ Jennie Liu ]</div>
+    <div class="top-nav">
+      <a href="#work">Work ©</a>
+      <a href="#about">About</a>
+      <a href="#contact">Reach Out</a>
+    </div>
+    <div class="top-time">
+      <span>LDN [UK]</span>
+      <span id="clock">--:--</span>
+      <span class="time-dot"></span>
+    </div>
+  </div>
+
+  <!-- HERO BODY -->
+  <div class="hero-body">
+    <!-- LEFT BOTTOM: Tagline -->
+    <div class="hero-tagline">
+      <p id="taglineText"></p>
+    </div>
+
+    <!-- CENTER: 3D J -->
+    <pre id="threeCanvas"></pre>
+
+    <!-- RIGHT BOTTOM: CTA -->
+    <div class="hero-cta-wrap">
+      <a href="https://calendly.com/0xjennie/30min" target="_blank" class="hero-cta">
+        Book a call
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+    </div>
+
+    <!-- SCROLL -->
+    <div class="hero-scroll">Scroll down to<br/>learn more about me ↓</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq">
+  <div class="mq-t">
+    <div class="mq-i"><span class="mq-d"></span>Digital Nomad</div>
+    <div class="mq-i"><span class="mq-d"></span>Tech Optimist</div>
+    <div class="mq-i"><span class="mq-d"></span>Storyteller</div>
+    <div class="mq-i"><span class="mq-d"></span>Product Builder</div>
+    <div class="mq-i"><span class="mq-d"></span>GTM Engineer</div>
+    <div class="mq-i"><span class="mq-d"></span>Fractional CMO</div>
+    <div class="mq-i"><span class="mq-d"></span>Marketing Advisor</div>
+    <div class="mq-i"><span class="mq-d"></span>AI</div>
+    <div class="mq-i"><span class="mq-d"></span>Crypto</div>
+    <div class="mq-i"><span class="mq-d"></span>XR</div>
+    <div class="mq-i"><span class="mq-d"></span>Digital Nomad</div>
+    <div class="mq-i"><span class="mq-d"></span>Tech Optimist</div>
+    <div class="mq-i"><span class="mq-d"></span>Storyteller</div>
+    <div class="mq-i"><span class="mq-d"></span>Product Builder</div>
+    <div class="mq-i"><span class="mq-d"></span>GTM Engineer</div>
+    <div class="mq-i"><span class="mq-d"></span>Fractional CMO</div>
+    <div class="mq-i"><span class="mq-d"></span>Marketing Advisor</div>
+    <div class="mq-i"><span class="mq-d"></span>AI</div>
+    <div class="mq-i"><span class="mq-d"></span>Crypto</div>
+    <div class="mq-i"><span class="mq-d"></span>XR</div>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="sec-head rv"><div class="sec-num">(01)</div><div class="sec-meta"><div class="sec-label">// Currently</div><div class="sec-title">Work</div></div></div>
+  <div class="now-g">
+    <div class="now-c rv d1"><div class="role">Fractional CMO</div><div class="org">Crypto × AI Startups</div><div class="desc">Helping early-stage teams define positioning, build GTM strategies, and scale growth — from narrative to distribution.</div></div>
+    <div class="now-c rv d2"><div class="role">Founder</div><div class="org">Demo Inn London</div><div class="desc">An IRL demo event for all creators — monthly showcases gathering founders, designers, developers, and builders in London.</div></div>
+    <div class="now-c rv d3"><div class="role">Product Co-builder</div><div class="org">Stealth AI Projects</div><div class="desc">Collaborating on early-stage AI products — from concept to prototype, bridging product thinking with growth strategy.</div></div>
+  </div>
+</section>
+
+<hr class="div-line"/>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-head rv"><div class="sec-num">(02)</div><div class="sec-meta"><div class="sec-label">// The path so far</div><div class="sec-title">About</div></div></div>
+  <div class="tl-g">
+    <div class="tl-i rv d1"><div class="tl-y">2023 – 2025</div><div class="tl-r">Head of Marketing</div><div class="tl-o">DIN (backed by Binance Labs) — 10x social growth, 1M DAU, 2.5M USD investment funding</div></div>
+    <div class="tl-i rv d2"><div class="tl-y">2022 – 2023</div><div class="tl-r">Marketing & Operation & Ecosystem Specialist</div><div class="tl-o">Stealth Crypto AI Projects — Winner of multiple hackathons</div></div>
+    <div class="tl-i rv d1"><div class="tl-y">2022 – 2023</div><div class="tl-r">Co-Initiator</div><div class="tl-o">Brand3DAO — 50+ DAO partnerships, events & hackathons</div></div>
+    <div class="tl-i rv d2"><div class="tl-y">2020 – 2022</div><div class="tl-r">Project Manager & New Media Producer</div><div class="tl-o">SoReal VR — 4,000sqm XR park at Shanghai Disney, 150k Douyin followers</div></div>
+    <div class="tl-i rv d1"><div class="tl-y">2019 – 2020</div><div class="tl-r">AI Product Manager Intern</div><div class="tl-o">Ping'An Technology</div></div>
+    <div class="tl-i rv d2"><div class="tl-y">2017 – 2019</div><div class="tl-r">Co-Founder & CMO</div><div class="tl-o">ParkHunt — Creator monetization platform, 1st prize × 2 in startup competitions</div></div>
+    <div class="tl-i rv d1"><div class="tl-y">2017 – 2018</div><div class="tl-r">Marketing Intern</div><div class="tl-o">Jiemian News</div></div>
+    <div class="tl-i rv d2"><div class="tl-y">2016</div><div class="tl-r">Content Editor Intern</div><div class="tl-o">Tencent News</div></div>
+    <div class="tl-i rv d1"><div class="tl-y">2018 – 2019</div><div class="tl-r">MA — Documentary & VR/AR</div><div class="tl-o">University College London</div></div>
+    <div class="tl-i rv d2"><div class="tl-y">2014 – 2018</div><div class="tl-r">BA — Communication & Media</div><div class="tl-o">Communication University of China</div></div>
+  </div>
+</section>
+
+<hr class="div-line"/>
+
+<!-- REACH OUT -->
+<section id="contact">
+  <div class="sec-head rv"><div class="sec-num">(03)</div><div class="sec-meta"><div class="sec-label">// Say hello</div><div class="sec-title">Reach Out</div></div></div>
+  <div class="ft-grid rv d1" style="margin-bottom:48px">
+    <div class="ft-cta-text"><a href="mailto:0xjennie.web3@gmail.com">Let's talk<span style="color:var(--accent)">.</span></a></div>
+    <div class="ft-3d"><pre id="ft3d"></pre></div>
+  </div>
+  <div class="ft-links rv d2">
+    <a href="https://x.com/jenniekusuen" target="_blank" class="fl">X (EN)</a>
+    <a href="https://x.com/jenniekusu" target="_blank" class="fl">X (CN)</a>
+    <a href="https://t.me/jenniekusu" target="_blank" class="fl">Telegram</a>
+    <a href="https://www.linkedin.com/in/jennie-ty-liu/" target="_blank" class="fl">LinkedIn</a>
+    <a href="mailto:0xjennie.web3@gmail.com" class="fl">Email</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-bot rv">
+    <div class="ft-info"><span>© 2026 Jennie Liu</span><span>London, UK</span></div>
+    <div class="ft-info" style="text-align:right"><span>Built with craft</span></div>
+  </div>
+</footer>
+
+<script>
+// ==========================================
+// 3D ROTATING "J" — POINT-CLOUD ASCII
+// ==========================================
+const mainPre = document.getElementById('threeCanvas');
+const footPre = document.getElementById('ft3d');
+
+function buildJ() {
+  const pts = [];
+  const D = 1.4;
+  function box(x0,y0,z0,x1,y1,z1,s) {
+    s=s||0.12;
+    for(let x=x0;x<=x1;x+=s)for(let y=y0;y<=y1;y+=s)for(let z=z0;z<=z1;z+=s){
+      const surf=Math.abs(x-x0)<s||Math.abs(x-x1)<s||Math.abs(y-y0)<s||Math.abs(y-y1)<s||Math.abs(z-z0)<s||Math.abs(z-z1)<s;
+      if(surf){
+        // Compute approximate normal
+        let nx=0,ny=0,nz=0;
+        if(Math.abs(x-x0)<s)nx=-1;if(Math.abs(x-x1)<s)nx=1;
+        if(Math.abs(y-y0)<s)ny=-1;if(Math.abs(y-y1)<s)ny=1;
+        if(Math.abs(z-z0)<s)nz=-1;if(Math.abs(z-z1)<s)nz=1;
+        const len=Math.sqrt(nx*nx+ny*ny+nz*nz)||1;
+        pts.push([x,y,z,nx/len,ny/len,nz/len]);
+      }
+    }
+  }
+
+  // J shape — centered at 0,0
+  // Top serif
+  box(-1.8,-3.2,-D/2, 1.8,-2.5,D/2, 0.11);
+  // Vertical stem
+  box(0.2,-3.2,-D/2, 1.3,1.6,D/2, 0.11);
+  // Bottom curve
+  box(-1.0,1.6,-D/2, 1.3,2.5,D/2, 0.11);
+  // Hook left
+  box(-1.8,0.4,-D/2,-0.6,2.0,D/2, 0.11);
+  // Hook cap
+  box(-2.1,-0.2,-D/2,-1.3,1.0,D/2, 0.11);
+
+  return pts;
+}
+
+const jPts = buildJ();
+const chars = ' .,:;=+*#%@';
+
+function renderJ(W,H,scale,aY,aX) {
+  const buf=new Array(W*H).fill(' ');
+  const zbuf=new Array(W*H).fill(-1e9);
+  const cY=Math.cos(aY),sY=Math.sin(aY),cX=Math.cos(aX),sX=Math.sin(aX);
+  // Light direction
+  const lx=0.3,ly=-0.5,lz=0.8;
+  const ll=Math.sqrt(lx*lx+ly*ly+lz*lz);
+
+  for(let i=0;i<jPts.length;i++){
+    let[px,py,pz,nx,ny,nz]=jPts[i];
+    // Rotate Y
+    let x1=px*cY+pz*sY, z1=-px*sY+pz*cY, y1=py;
+    let nx1=nx*cY+nz*sY, nz1=-nx*sY+nz*cY, ny1=ny;
+    // Rotate X
+    let y2=y1*cX-z1*sX, z2=y1*sX+z1*cX, x2=x1;
+    let ny2=ny1*cX-nz1*sX, nz2=ny1*sX+nz1*cX, nx2=nx1;
+    // Project
+    const d=7, ps=d/(d+z2);
+    const sx=Math.round(W/2+x2*scale*ps);
+    const sy=Math.round(H/2+y2*scale*ps);
+    if(sx>=0&&sx<W&&sy>=0&&sy<H){
+      const idx=sy*W+sx;
+      if(z2>zbuf[idx]){
+        zbuf[idx]=z2;
+        // Lighting
+        const dot=(nx2*lx+ny2*ly+nz2*lz)/ll;
+        const lum=Math.max(0,Math.min(chars.length-1,Math.round((dot*0.5+0.5)*(chars.length-1))));
+        buf[idx]=chars[lum];
+      }
+    }
+  }
+
+  let out='';
+  for(let r=0;r<H;r++) out+=buf.slice(r*W,(r+1)*W).join('')+'\n';
+  return out;
+}
+
+let rA=0,rB=0;
+function anim3D(){
+  if(mainPre) mainPre.textContent=renderJ(60,46,5.8,rA,rB*0.3);
+  if(footPre) footPre.textContent=renderJ(45,32,4,rA*1.1,rB*0.2);
+  rA+=0.02; rB+=0.008;
+  requestAnimationFrame(anim3D);
+}
+anim3D();
+
+// ==========================================
+// CLOCK
+// ==========================================
+function updateClock(){
+  const now=new Date();
+  const ldn=now.toLocaleTimeString('en-GB',{timeZone:'Europe/London',hour:'2-digit',minute:'2-digit',hour12:true}).toUpperCase();
+  document.getElementById('clock').textContent=ldn;
+}
+updateClock(); setInterval(updateClock,10000);
+
+// ==========================================
+// TYPEWRITER — Tagline
+// ==========================================
+const tagline = "Experienced marketing partner helping technology scale across applications and solutions.";
+const tagEl = document.getElementById('taglineText');
+
+function typeTagline(){
+  let i=0;
+  tagEl.textContent='';
+  const iv=setInterval(()=>{
+    tagEl.textContent=tagline.slice(0,++i);
+    if(i>=tagline.length) clearInterval(iv);
+  },22);
+}
+setTimeout(typeTagline,500);
+
+// ==========================================
+// CURSOR
+// ==========================================
+const curEl=document.getElementById('cur'),glEl=document.getElementById('glow');
+let mx=0,my=0,cx=0,cy=0,gx=0,gy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function cl(){cx+=(mx-cx)*.15;cy+=(my-cy)*.15;gx+=(mx-gx)*.04;gy+=(my-gy)*.04;curEl.style.left=cx+'px';curEl.style.top=cy+'px';glEl.style.left=gx+'px';glEl.style.top=gy+'px';requestAnimationFrame(cl)})();
+document.querySelectorAll('a,.now-c,.pr,.tl-i,.fl,.hero-cta').forEach(el=>{
+  el.addEventListener('mouseenter',()=>curEl.classList.add('h'));
+  el.addEventListener('mouseleave',()=>curEl.classList.remove('h'));
+});
+
+// ==========================================
+// SCROLL REVEAL
+// ==========================================
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
+},{threshold:0.05,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// NAV hide on scroll (top bar)
+let ls=0;
+window.addEventListener('scroll',()=>{
+  const s=window.pageYOffset;
+  document.querySelector('.top-bar').style.transform=(s>ls&&s>100)?'translateY(-100%)':'translateY(0)';
+  document.querySelector('.top-bar').style.transition='transform .3s';
+  document.querySelector('.top-bar').style.position='fixed';
+  document.querySelector('.top-bar').style.top='0';
+  document.querySelector('.top-bar').style.left='0';
+  document.querySelector('.top-bar').style.right='0';
+  document.querySelector('.top-bar').style.zIndex='100';
+  document.querySelector('.top-bar').style.background='rgba(245,245,240,.9)';
+  document.querySelector('.top-bar').style.backdropFilter='blur(14px)';
+  ls=s;
+},{passive:true});
+
+// Parallax on 3D
+window.addEventListener('scroll',()=>{
+  const p=window.pageYOffset/window.innerHeight;
+  if(mainPre){
+    mainPre.style.opacity=Math.max(0,1-p*.7);
+    mainPre.style.transform=`scale(${1+p*.06})`;
+  }
+},{passive:true});
+</script>
+</body>
+</html>
